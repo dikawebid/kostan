@@ -1,0 +1,61 @@
+# Nama workflow
+name: Deploy React App to GitHub Pages
+
+# Trigger: Menjalankan workflow setiap kali ada push ke branch 'main'
+on:
+  push:
+    branches: ["main"]
+
+# Memberikan izin kepada workflow untuk menulis ke repo (untuk membuat branch gh-pages)
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Mendefinisikan jobs yang akan dijalankan
+jobs:
+  # Job untuk build dan deploy
+  build-and-deploy:
+    runs-on: ubuntu-latest # Menggunakan sistem operasi Ubuntu terbaru
+    steps:
+      # 1. Checkout kode dari repository
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      # 2. Setup Node.js
+      - name: Setup Node.js 🟩
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # Gunakan versi Node.js yang sesuai
+          cache: "npm"
+
+      # 3. Install dependencies
+      - name: Install Dependencies 📦
+        run: npm install
+
+      # 4. Build aplikasi React
+      # Di sinilah kita memasukkan GitHub Secrets sebagai environment variables
+      - name: Build 🛠️
+        run: npm run build
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+          VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
+          VITE_ADMIN_EMAIL: ${{ secrets.VITE_ADMIN_EMAIL }}
+          VITE_CLOUDINARY_CLOUD_NAME: ${{ secrets.VITE_CLOUDINARY_CLOUD_NAME }}
+          VITE_CLOUDINARY_UPLOAD_PRESET: ${{ secrets.VITE_CLOUDINARY_UPLOAD_PRESET }}
+
+      # 5. Upload artifact untuk GitHub Pages
+      - name: Upload artifact 🚀
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./dist" # Folder hasil build dari Vite
+
+      # 6. Deploy ke GitHub Pages
+      - name: Deploy to GitHub Pages 🌍
+        id: deployment
+        uses: actions/deploy-pages@v4
