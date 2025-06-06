@@ -16,6 +16,9 @@ permissions:
 jobs:
   # Job untuk build dan deploy
   build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest # Menggunakan sistem operasi Ubuntu terbaru
     steps:
       # 1. Checkout kode dari repository
