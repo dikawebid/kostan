@@ -1,13 +1,13 @@
-import React, { useState, useMemo } from 'react';
-import { Search, Filter, Bed, Users, DollarSign, RefreshCw, AlertCircle } from 'lucide-react';
-import RoomCard from './RoomCard';
-import RoomModal from './RoomModal';
-import { useRooms } from '../hooks/useRooms';
-import { Room } from '../types';
+import React, { useState, useMemo } from "react";
+import { Search, Bed, RefreshCw, AlertCircle, Currency } from "lucide-react";
+import RoomCard from "./RoomCard";
+import RoomModal from "./RoomModal";
+import { useRooms } from "../hooks/useRooms";
+import { Room } from "../types";
 
 const RoomsSection: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedType, setSelectedType] = useState<string>('all');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedType, setSelectedType] = useState<string>("all");
   const [maxPrice, setMaxPrice] = useState<number>(2000000);
   const [showAvailableOnly, setShowAvailableOnly] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
@@ -16,20 +16,26 @@ const RoomsSection: React.FC = () => {
   const { rooms, loading, error, refetch } = useRooms(true);
 
   const filteredRooms = useMemo(() => {
-    return rooms.filter(room => {
-      const matchesSearch = room.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          room.description.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesType = selectedType === 'all' || room.type === selectedType;
+    return rooms.filter((room) => {
+      const matchesSearch =
+        room.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        room.description.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesType = selectedType === "all" || room.type === selectedType;
       const matchesPrice = room.price <= maxPrice;
       const matchesAvailability = !showAvailableOnly || room.available;
 
-      return matchesSearch && matchesType && matchesPrice && matchesAvailability;
+      return (
+        matchesSearch && matchesType && matchesPrice && matchesAvailability
+      );
     });
   }, [rooms, searchTerm, selectedType, maxPrice, showAvailableOnly]);
 
   if (loading) {
     return (
-      <section id="rooms\" className="py-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+      <section
+        id="rooms\"
+        className="py-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-300"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="inline-flex items-center space-x-2 text-blue-600 dark:text-blue-400">
@@ -44,7 +50,10 @@ const RoomsSection: React.FC = () => {
 
   if (error) {
     return (
-      <section id="rooms" className="py-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+      <section
+        id="rooms"
+        className="py-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-300"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="inline-flex items-center space-x-2 text-red-600 dark:text-red-400 mb-4">
@@ -65,7 +74,10 @@ const RoomsSection: React.FC = () => {
   }
 
   return (
-    <section id="rooms" className="py-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <section
+      id="rooms"
+      className="py-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-300"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -108,7 +120,7 @@ const RoomsSection: React.FC = () => {
 
             {/* Price Range */}
             <div className="relative">
-              <DollarSign className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+              <Currency className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
               <select
                 value={maxPrice}
                 onChange={(e) => setMaxPrice(Number(e.target.value))}
@@ -131,7 +143,10 @@ const RoomsSection: React.FC = () => {
                 onChange={(e) => setShowAvailableOnly(e.target.checked)}
                 className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
               />
-              <label htmlFor="available-only" className="text-gray-700 dark:text-gray-300">
+              <label
+                htmlFor="available-only"
+                className="text-gray-700 dark:text-gray-300"
+              >
                 Hanya yang tersedia
               </label>
             </div>

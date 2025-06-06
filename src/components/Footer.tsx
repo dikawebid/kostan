@@ -1,6 +1,7 @@
 import React from "react";
 import { Home, MessageCircle, Phone, Mail, MapPin, Heart } from "lucide-react";
 import { useWebsiteConfig } from "../hooks/useWebsiteConfig";
+import { Link } from "react-router-dom";
 
 const Footer: React.FC = () => {
   const { config } = useWebsiteConfig();
@@ -100,6 +101,14 @@ const Footer: React.FC = () => {
                 >
                   Kontak
                 </button>
+              </li>
+              <li>
+                <Link
+                  to="/admin"
+                  className="text-gray-300 hover:text-blue-400 transition-colors"
+                >
+                  Manage
+                </Link>
               </li>
             </ul>
           </div>
