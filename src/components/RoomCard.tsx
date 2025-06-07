@@ -1,6 +1,6 @@
-import React from 'react';
-import { MapPin, Users, Wifi, CheckCircle, XCircle } from 'lucide-react';
-import { Room } from '../types';
+import React from "react";
+import { CheckCircle, XCircle } from "lucide-react";
+import { Room } from "../types";
 
 interface RoomCardProps {
   room: Room;
@@ -9,7 +9,7 @@ interface RoomCardProps {
 
 const RoomCard: React.FC<RoomCardProps> = ({ room, onClick }) => {
   return (
-    <div 
+    <div
       onClick={onClick}
       className="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1 overflow-hidden"
     >
@@ -20,29 +20,32 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onClick }) => {
           className="w-full h-48 object-cover"
         />
         <div className="absolute top-4 left-4">
-          <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-            room.available 
-              ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
-              : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'
-          }`}>
-            {room.available ? 'Tersedia' : 'Tidak Tersedia'}
+          <span
+            className={`px-3 py-1 rounded-full text-sm font-semibold ${
+              room.available
+                ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
+                : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
+            }`}
+          >
+            {room.available ? "Tersedia" : "Tidak Tersedia"}
           </span>
         </div>
         <div className="absolute top-4 right-4">
           <span className="px-3 py-1 bg-blue-600 text-white rounded-full text-sm font-semibold">
-            {room.type === 'single' ? 'Single' : room.type === 'double' ? 'Double' : 'Shared'}
+            {room.type === "single"
+              ? "Single"
+              : room.type === "double"
+                ? "Double"
+                : "Shared"}
           </span>
         </div>
       </div>
 
       <div className="p-6">
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{room.name}</h3>
-        
-        <div className="flex items-center justify-between mb-4">
-          <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-            Rp {room.price.toLocaleString('id-ID')}
-            <span className="text-sm text-gray-500 dark:text-gray-400 font-normal">/bulan</span>
-          </div>
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+            {room.name}
+          </h3>
           <div className="flex items-center space-x-1">
             {room.available ? (
               <CheckCircle className="h-5 w-5 text-green-500" />
@@ -50,6 +53,17 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onClick }) => {
               <XCircle className="h-5 w-5 text-red-500" />
             )}
           </div>
+        </div>
+
+        <div className="flex items-center justify-between mb-4">
+          {room.price > 0 && (
+            <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+              Rp {room.price.toLocaleString("id-ID")}
+              <span className="text-sm text-gray-500 dark:text-gray-400 font-normal">
+                /bulan
+              </span>
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-2 gap-2 mb-4 text-sm text-gray-600 dark:text-gray-400">

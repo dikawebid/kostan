@@ -167,12 +167,14 @@ const RoomModal: React.FC<RoomModalProps> = ({ room, isOpen, onClose }) => {
             <div className="space-y-4 sm:space-y-6">
               {/* Price */}
               <div>
-                <div className="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
-                  Rp {room.price.toLocaleString("id-ID")}
-                  <span className="text-base sm:text-lg text-gray-500 dark:text-gray-400 font-normal">
-                    /bulan
-                  </span>
-                </div>
+                {room.price > 0 && (
+                  <div className="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+                    Rp {room.price.toLocaleString("id-ID")}
+                    <span className="text-base sm:text-lg text-gray-500 dark:text-gray-400 font-normal">
+                      /bulan
+                    </span>
+                  </div>
+                )}
                 <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
                   {room.description}
                 </p>
@@ -223,7 +225,7 @@ const RoomModal: React.FC<RoomModalProps> = ({ room, isOpen, onClose }) => {
                   className="w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg font-semibold transition-colors duration-300 flex items-center justify-center space-x-2"
                 >
                   <MessageCircle className="h-5 w-5" />
-                  <span>Hubungi via WhatsApp 1</span>
+                  <span>Hubungi via WhatsApp</span>
                 </button>
 
                 {room.available && (

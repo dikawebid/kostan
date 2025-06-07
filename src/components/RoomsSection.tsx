@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Search, Bed, RefreshCw, AlertCircle, Currency } from "lucide-react";
+import { Search, Bed, RefreshCw, AlertCircle } from "lucide-react";
 import RoomCard from "./RoomCard";
 import RoomModal from "./RoomModal";
 import { useRooms } from "../hooks/useRooms";
@@ -119,7 +119,7 @@ const RoomsSection: React.FC = () => {
             </div>
 
             {/* Price Range */}
-            <div className="relative">
+            {/* <div className="relative">
               <Currency className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
               <select
                 value={maxPrice}
@@ -132,7 +132,7 @@ const RoomsSection: React.FC = () => {
                 <option value={1200000}>≤ Rp 1.200.000</option>
                 <option value={1500000}>≤ Rp 1.500.000</option>
               </select>
-            </div>
+            </div> */}
 
             {/* Availability Filter */}
             <div className="flex items-center space-x-2">
