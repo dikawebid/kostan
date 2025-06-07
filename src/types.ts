@@ -10,6 +10,7 @@ export interface Room {
   size: string;
   floor: number;
   orientation: string;
+  show: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }

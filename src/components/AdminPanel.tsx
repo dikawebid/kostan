@@ -1,16 +1,5 @@
 import React, { useState } from "react";
-import {
-  Plus,
-  Edit,
-  Trash2,
-  Save,
-  X,
-  LogOut,
-  Settings,
-  Home,
-  Users,
-  Globe,
-} from "lucide-react";
+import { Plus, Edit, Trash2, Save, X, LogOut, Home } from "lucide-react";
 import { useRooms } from "../hooks/useRooms";
 import { useFacilities } from "../hooks/useFacilities";
 import { useAuth } from "../hooks/useAuth";
@@ -19,6 +8,7 @@ import {
   updateRoom,
   deleteRoom,
   updateRoomAvailability,
+  updateRoomShow,
 } from "../services/roomService";
 import { signOutUser } from "../services/authService";
 import { Room } from "../types";
@@ -48,6 +38,7 @@ const AdminPanel: React.FC = () => {
     size: "",
     floor: 1,
     orientation: "",
+    show: false,
   });
 
   const handleInputChange = (field: keyof Room, value: any) => {
@@ -112,6 +103,16 @@ const AdminPanel: React.FC = () => {
     }
   };
 
+  const handleToggleShow = async (id: string, show: boolean) => {
+    try {
+      await updateRoomShow(id, !show);
+      refetch();
+    } catch (error) {
+      console.error("Error updating show:", error);
+      alert("Gagal mengubah status tampilkan");
+    }
+  };
+
   const resetForm = () => {
     setFormData({
       name: "",
@@ -124,6 +125,7 @@ const AdminPanel: React.FC = () => {
       size: "",
       floor: 1,
       orientation: "",
+      show: true,
     });
     setIsAddingRoom(false);
     setEditingRoom(null);
@@ -467,6 +469,24 @@ const AdminPanel: React.FC = () => {
                     </label>
                   </div>
 
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      id="show"
+                      checked={formData.show || false}
+                      onChange={(e) =>
+                        handleInputChange("show", e.target.checked)
+                      }
+                      className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                    />
+                    <label
+                      htmlFor="show"
+                      className="text-sm text-gray-700 dark:text-gray-300"
+                    >
+                      Tampilkan
+                    </label>
+                  </div>
+
                   <div className="flex flex-col sm:flex-row gap-4">
                     <button
                       type="submit"
@@ -534,7 +554,22 @@ const AdminPanel: React.FC = () => {
                                 : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
                             }`}
                           >
-                            {room.available ? "Tersedia" : "Tidak Tersedia"}
+                            {room.available
+                              ? "Tersedia"
+                              : "Tidak Tersedia"}{" "}
+                          </button>
+
+                          <button
+                            onClick={() => handleToggleShow(room.id, room.show)}
+                            className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                              room.show
+                                ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
+                                : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
+                            }`}
+                          >
+                            {room.show
+                              ? "Ditampilkan"
+                              : "Tidak Ditampilkan"}{" "}
                           </button>
                         </div>
                       </div>
@@ -600,6 +635,9 @@ const AdminPanel: React.FC = () => {
                         Status
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                        Tampilkan
+                      </th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                         Gambar
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
@@ -640,6 +678,20 @@ const AdminPanel: React.FC = () => {
                             }`}
                           >
                             {room.available ? "Tersedia" : "Tidak Tersedia"}
+                          </button>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <button
+                            onClick={() =>
+                              handleToggleShow(room.id, room?.show)
+                            }
+                            className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                              room.show
+                                ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
+                                : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
+                            }`}
+                          >
+                            {room.show ? "Ya" : "Tidak"}
                           </button>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">

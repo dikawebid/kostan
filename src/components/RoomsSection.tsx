@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Search, Bed, RefreshCw, AlertCircle } from "lucide-react";
 import RoomCard from "./RoomCard";
 import RoomModal from "./RoomModal";
@@ -13,10 +13,15 @@ const RoomsSection: React.FC = () => {
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
 
   // Use real-time data from Firestore
-  const { rooms, loading, error, refetch } = useRooms(true);
+  const { publishedRooms, loading, error, fetchPublishedRooms } =
+    useRooms(true);
+
+  useEffect(() => {
+    fetchPublishedRooms();
+  }, []);
 
   const filteredRooms = useMemo(() => {
-    return rooms.filter((room) => {
+    return publishedRooms.filter((room) => {
       const matchesSearch =
         room.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         room.description.toLowerCase().includes(searchTerm.toLowerCase());
@@ -28,12 +33,12 @@ const RoomsSection: React.FC = () => {
         matchesSearch && matchesType && matchesPrice && matchesAvailability
       );
     });
-  }, [rooms, searchTerm, selectedType, maxPrice, showAvailableOnly]);
+  }, [publishedRooms, searchTerm, selectedType, maxPrice, showAvailableOnly]);
 
   if (loading) {
     return (
       <section
-        id="rooms\"
+        id="rooms"
         className="py-20 bg-gray-50 dark:bg-gray-900 transition-colors duration-300"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,7 +67,7 @@ const RoomsSection: React.FC = () => {
             </div>
             <p className="text-gray-600 dark:text-gray-400 mb-4">{error}</p>
             <button
-              onClick={refetch}
+              onClick={fetchPublishedRooms}
               className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors duration-300"
             >
               Coba Lagi
@@ -155,10 +160,11 @@ const RoomsSection: React.FC = () => {
         {/* Results */}
         <div className="mb-6 flex justify-between items-center">
           <p className="text-gray-600 dark:text-gray-400">
-            Menampilkan {filteredRooms.length} dari {rooms.length} hunian
+            Menampilkan {filteredRooms.length} dari {publishedRooms.length}{" "}
+            hunian
           </p>
           <button
-            onClick={refetch}
+            onClick={fetchPublishedRooms}
             className="inline-flex items-center space-x-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
           >
             <RefreshCw className="h-4 w-4" />

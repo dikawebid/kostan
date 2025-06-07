@@ -1,16 +1,23 @@
-import { useState, useEffect } from 'react';
-import { Room } from '../types';
-import { getAllRooms, subscribeToRooms } from '../services/roomService';
+import { useState, useEffect } from "react";
+import { Room } from "../types";
+import {
+  getAllRooms,
+  getPublishedRooms,
+  subscribeToRooms,
+} from "../services/roomService";
 
 interface UseRoomsReturn {
   rooms: Room[];
   loading: boolean;
   error: string | null;
   refetch: () => Promise<void>;
+  publishedRooms: Room[];
+  fetchPublishedRooms: () => Promise<void>;
 }
 
 export const useRooms = (realtime: boolean = false): UseRoomsReturn => {
   const [rooms, setRooms] = useState<Room[]>([]);
+  const [publishedRooms, setPublishedRooms] = useState<Room[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -21,7 +28,22 @@ export const useRooms = (realtime: boolean = false): UseRoomsReturn => {
       const fetchedRooms = await getAllRooms();
       setRooms(fetchedRooms);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch rooms');
+      setError(err instanceof Error ? err.message : "Failed to fetch rooms");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchPublishedRooms = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const fetchedRooms = await getPublishedRooms();
+      setPublishedRooms(fetchedRooms);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Failed to fetch published rooms",
+      );
     } finally {
       setLoading(false);
     }
@@ -47,6 +69,8 @@ export const useRooms = (realtime: boolean = false): UseRoomsReturn => {
     rooms,
     loading,
     error,
-    refetch: fetchRooms
+    refetch: fetchRooms,
+    publishedRooms,
+    fetchPublishedRooms: fetchPublishedRooms,
   };
 };
