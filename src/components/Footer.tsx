@@ -83,7 +83,7 @@ const Footer: React.FC = () => {
                   onClick={() => scrollToSection("rooms")}
                   className="text-gray-300 hover:text-blue-400 transition-colors"
                 >
-                  Kamar
+                  Hunian
                 </button>
               </li>
               <li>

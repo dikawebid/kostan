@@ -91,11 +91,11 @@ const RoomModal: React.FC<RoomModalProps> = ({ room, isOpen, onClose }) => {
                   {room.available ? "Tersedia" : "Tidak Tersedia"}
                 </span>
                 <span className="px-2 sm:px-3 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300 rounded-full text-xs sm:text-sm font-semibold">
-                  {room.type === "single"
-                    ? "Single"
-                    : room.type === "double"
-                      ? "Double"
-                      : "Shared"}
+                  {room.type === "kost"
+                    ? "Kost"
+                    : room.type === "kontrakan"
+                      ? "Kontrakan"
+                      : "Lainnya"}
                 </span>
               </div>
             </div>

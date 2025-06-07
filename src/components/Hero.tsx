@@ -23,6 +23,9 @@ const Hero: React.FC = () => {
   };
 
   const contactInfo = config?.contactInfo || defaultContactInfo;
+  const aboutDescription =
+    config?.aboutDescription ||
+    "Kost Pak Jajang Lembang telah melayani penghuni selama lebih dari 10 tahun dengan komitmen memberikan hunian yang nyaman, aman, dan terjangkau di kawasan wisata Lembang yang sejuk.";
 
   const scrollToRooms = () => {
     const element = document.getElementById("rooms");
@@ -61,8 +64,7 @@ const Hero: React.FC = () => {
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Hunian nyaman dan strategis di kawasan sejuk Lembang dengan
-            fasilitas modern dan harga terjangkau
+            {aboutDescription}
           </p>
 
           <div className="flex flex-wrap justify-center gap-6 mb-12">
@@ -79,7 +81,7 @@ const Hero: React.FC = () => {
               onClick={scrollToRooms}
               className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
-              Lihat Kamar Tersedia
+              Lihat Hunian Tersedia
             </button>
             <button
               onClick={handleWhatsApp}

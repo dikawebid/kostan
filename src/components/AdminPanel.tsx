@@ -39,7 +39,7 @@ const AdminPanel: React.FC = () => {
   const [editingRoom, setEditingRoom] = useState<Room | null>(null);
   const [formData, setFormData] = useState<Partial<Room>>({
     name: "",
-    type: "single",
+    type: "kost",
     price: 0,
     available: true,
     facilities: [],
@@ -115,7 +115,7 @@ const AdminPanel: React.FC = () => {
   const resetForm = () => {
     setFormData({
       name: "",
-      type: "single",
+      type: "kost",
       price: 0,
       available: true,
       facilities: [],
@@ -325,15 +325,14 @@ const AdminPanel: React.FC = () => {
                         Tipe Kamar
                       </label>
                       <select
-                        value={formData.type || "single"}
+                        value={formData.type || "kost"}
                         onChange={(e) =>
                           handleInputChange("type", e.target.value)
                         }
                         className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                       >
-                        <option value="single">Single</option>
-                        <option value="double">Double</option>
-                        <option value="shared">Shared</option>
+                        <option value="kost">Kost</option>
+                        <option value="kontrakan">Kontrakan</option>
                       </select>
                     </div>
 
@@ -516,9 +515,9 @@ const AdminPanel: React.FC = () => {
                         <div className="flex flex-col items-end space-y-2">
                           <span
                             className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                              room.type === "single"
+                              room.type === "kost"
                                 ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300"
-                                : room.type === "double"
+                                : room.type === "kontrakan"
                                   ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
                                   : "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300"
                             }`}

@@ -81,10 +81,10 @@ const RoomsSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Pilihan Kamar Tersedia
+            Pilihan Hunian Tersedia
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Temukan kamar yang sesuai dengan kebutuhan dan budget Anda
+            Temukan hunian yang sesuai dengan kebutuhan Anda
           </p>
         </div>
 
@@ -96,7 +96,7 @@ const RoomsSection: React.FC = () => {
               <Search className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
               <input
                 type="text"
-                placeholder="Cari kamar..."
+                placeholder="Cari hunian..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
@@ -112,9 +112,8 @@ const RoomsSection: React.FC = () => {
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               >
                 <option value="all">Semua Tipe</option>
-                <option value="single">Single</option>
-                <option value="double">Double</option>
-                <option value="shared">Shared</option>
+                <option value="kost">Kost</option>
+                <option value="kontrakan">Kontrakan</option>
               </select>
             </div>
 
@@ -156,7 +155,7 @@ const RoomsSection: React.FC = () => {
         {/* Results */}
         <div className="mb-6 flex justify-between items-center">
           <p className="text-gray-600 dark:text-gray-400">
-            Menampilkan {filteredRooms.length} dari {rooms.length} kamar
+            Menampilkan {filteredRooms.length} dari {rooms.length} hunian
           </p>
           <button
             onClick={refetch}

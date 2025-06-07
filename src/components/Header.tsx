@@ -41,7 +41,7 @@ const Header: React.FC = () => {
               onClick={() => scrollToSection("rooms")}
               className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
-              Kamar
+              Hunian
             </button>
             <button
               onClick={() => scrollToSection("about")}

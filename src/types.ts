@@ -1,7 +1,7 @@
 export interface Room {
   id: string;
   name: string;
-  type: 'single' | 'double' | 'shared';
+  type: "kost" | "kontrakan";
   price: number;
   available: boolean;
   facilities: string[];
@@ -19,7 +19,7 @@ export interface Facility {
   name: string;
   icon: string;
   description: string;
-  category: 'basic' | 'comfort' | 'premium';
+  category: "basic" | "comfort" | "premium";
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -40,22 +40,22 @@ export interface WebsiteConfig {
   aboutTitle: string;
   aboutDescription: string;
   aboutFeatures: AboutFeature[];
-  
+
   // Rules Section
   kostRules: string[];
-  
+
   // Contact Information
   contactInfo: ContactInfo;
-  
+
   // Location & Map
   location: LocationInfo;
-  
+
   // Transportation Access
   transportationAccess: TransportationItem[];
-  
+
   // Nearby Facilities
   nearbyFacilities: NearbyFacility[];
-  
+
   // Meta Information
   createdAt?: Date;
   updatedAt?: Date;
@@ -104,6 +104,6 @@ export interface NearbyFacility {
   id: string;
   name: string;
   distance: string;
-  category: 'shopping' | 'healthcare' | 'education' | 'entertainment' | 'other';
+  category: "shopping" | "healthcare" | "education" | "entertainment" | "other";
   icon: string;
 }

@@ -32,11 +32,11 @@ const RoomCard: React.FC<RoomCardProps> = ({ room, onClick }) => {
         </div>
         <div className="absolute top-4 right-4">
           <span className="px-3 py-1 bg-blue-600 text-white rounded-full text-sm font-semibold">
-            {room.type === "single"
-              ? "Single"
-              : room.type === "double"
-                ? "Double"
-                : "Shared"}
+            {room.type === "kost"
+              ? "Kost"
+              : room.type === "kontrakan"
+                ? "Kontrakan"
+                : "Lainnya"}
           </span>
         </div>
       </div>

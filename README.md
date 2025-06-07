@@ -54,7 +54,7 @@ VITE_FIREBASE_APP_ID=your_app_id
 {
   id: string,
   name: string,
-  type: 'single' | 'double' | 'shared',
+  type: 'kost' | 'kontrakan',
   price: number,
   available: boolean,
   facilities: string[], // Array nama fasilitas
@@ -190,21 +190,21 @@ service cloud.firestore {
     // Rooms - read public, write admin only
     match /rooms/{roomId} {
       allow read: if true;
-      allow write: if request.auth != null && 
+      allow write: if request.auth != null &&
         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
     }
-    
+
     // Facilities - read public, write admin only
     match /facilities/{facilityId} {
       allow read: if true;
-      allow write: if request.auth != null && 
+      allow write: if request.auth != null &&
         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
     }
-    
+
     // Users - read/write own data, admin can read all
     match /users/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
-      allow read: if request.auth != null && 
+      allow read: if request.auth != null &&
         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
     }
   }
