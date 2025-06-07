@@ -102,6 +102,14 @@ const Footer: React.FC = () => {
                   Kontak
                 </button>
               </li>
+              <li>
+                <Link
+                  to="/admin"
+                  className="text-gray-300 hover:text-blue-400 transition-colors"
+                >
+                  Manage
+                </Link>
+              </li>
             </ul>
           </div>
 
